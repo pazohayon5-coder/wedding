@@ -357,7 +357,7 @@ const STATUS={pending:'ממתין',yes:'מגיע',maybe:'אולי',no:'לא מג
 const VSTATUS={looking:'בבירור',quote:'יש הצעת מחיר',booked:'נסגר'};
 const GROUPS=['משפחה','חברים','עבודה','צבא','לימודים','שכנים','אחר'];
 const GIFTKIND=['צ׳ק','מזומן','ביט / פייבוקס','העברה בנקאית','מתנה'];
-const TABS=[['overview','סקירה'],['guests','מוזמנים'],['vendors','ספקים ועלויות'],['venues','אולמות'],['tasks','משימות'],['day','לו״ז היום'],['gifts','מתנות'],['ideas','רעיונות'],['prefs','הגדרות']];
+const TABS=[['overview','סקירה'],['guests','מוזמנים'],['vendors','ספקים ועלויות'],['venues','אולמות'],['dates','תאריכים'],['tasks','משימות'],['day','לו״ז היום'],['gifts','מתנות'],['ideas','רעיונות'],['prefs','הגדרות']];
 const COLS=['guests','vendors','tasks','timeline','gifts','venues'];
 const DEFAULT_MSG='היי {שם}! {זוג} מתחתנים ב{תאריך} ב{מקום} ונשמח מאוד שתהיו איתנו 🤍\nאפשר לאשר הגעה כאן: {קישור}';
 const REMIND_MSG='היי {שם}, תזכורת קטנה 🙂\nעוד לא קיבלנו תשובה אם אתם מגיעים {לאירוע} של {זוג}{תאריך}. נשמח מאוד לדעת:\n{קישור}';
@@ -774,12 +774,12 @@ function vVenues(){
    +CMPROWS.map(([f,l])=>'<tr><th>'+l+'</th>'+cell('a',f)+cell('b',f)+'</tr>').join('')
    +'<tr class="tot"><th>סה״כ</th><td id="cmpTa" class="num"></td><td id="cmpTb" class="num"></td></tr><tr><th>לאורח</th><td id="cmpPa" class="num"></td><td id="cmpPb" class="num"></td></tr></tbody></table>'
    +'<p class="sub" id="cmpRes" style="margin:10px 0 0;font-weight:700;color:var(--ink)"></p><div class="sub" style="margin-top:4px">כשיש מינימום מנות, החישוב לוקח את הגבוה מבין מספר האורחים למינימום.</div></div>';
-  if(cur==='wedding')h+=datesHtml();
   setTimeout(cmpRefresh,0);return h;
 }
+function vDates(){return banners()+'<div class="sec-head"><div><h2>תאריכים אפשריים</h2><div class="sub">ימי שישי בשעון קיץ. מסמנים מועדפים בכוכב וקובעים את התאריך.</div></div></div>'+datesHtml();}
 function datesHtml(){const s=set();const city=CITIES[s.dateCity]?s.dateCity:'tlv';const [cn,lat,lon,cl]=CITIES[city];const favs=s.favDates||[];
   const all=summerFridays();const list=ui.dFav?all.filter(t=>favs.includes(isoOf(t))):all;
-  let h='<div class="card" style="margin-top:18px"><div class="sec-head" style="margin:0 0 6px"><div><h3 style="margin:0">תאריכים בימי שישי</h3><div class="sub">כל ימי שישי בשעון קיץ, עם כניסת השבת (הדלקת נרות) וצאת השבת. הזמנים משוערים, בטווח של כדקה־שתיים.</div></div></div>'
+  let h='<div class="card"><div class="sub">לכל יום: הדלקת נרות וצאת שבת. הזמנים משוערים, בטווח של כדקה־שתיים.</div>'
    +'<div class="chips" style="margin:8px 0">'+Object.entries(CITIES).map(([k,v])=>'<button type="button" class="btn small'+(k===city?' primary':'')+'" data-dcity="'+k+'">'+v[0]+'</button>').join('')
    +'<button type="button" class="btn small'+(ui.dFav?' primary':'')+'" data-dfav="1">★ רק מועדפים ('+favs.length+')</button></div>';
   if(!list.length)return h+'<div class="sub">'+(ui.dFav?'עוד לא סימנתם תאריכים. לוחצים על הכוכב ליד תאריך.':'אין תאריכים להצגה.')+'</div></div>';
@@ -848,7 +848,7 @@ function render(){
   renderHeader();
   const ae=document.activeElement;const aid=ae&&ae.id;const sel=ae&&ae.selectionStart;
   if(mode==='loading'){$('#main').innerHTML='<div class="card empty">טוען את החתונה…</div>';return;}
-  const V={overview:vOverview,guests:vGuests,vendors:vVendors,tasks:vTasks,day:vDay,gifts:vGifts,venues:vVenues,ideas:vIdeas,prefs:vPrefs}[ui.tab]||vOverview;
+  const V={overview:vOverview,guests:vGuests,vendors:vVendors,tasks:vTasks,day:vDay,gifts:vGifts,venues:vVenues,dates:vDates,ideas:vIdeas,prefs:vPrefs}[ui.tab]||vOverview;
   if(ui.tab==='prefs'&&$('#prefsForm')&&$('#prefsForm').contains(ae)){return;}
   if(ui.tab==='venues'&&$('#cmp')&&$('#cmp').contains(ae)&&ae.tagName==='INPUT'){return;}
   $('#main').innerHTML=V();
