@@ -279,6 +279,26 @@ footer{color:var(--muted);font-size:13px;text-align:center;padding-block:10px 30
   #app:not([data-tab=overview]) .inv-open{font-size:14px}
   .tile .val{font-size:26px}
 }
+
+/* Pass 2: light invitation header, calmer palette */
+@media (prefers-color-scheme: light){:root:not([data-theme="dark"]){--bg:#F7F7F3;--ink:#1B2A23;--accent:#24493C;--gold:#9A7330;--line:#E1E5DF}}
+:root[data-theme="light"]{--bg:#F7F7F3;--ink:#1B2A23;--accent:#24493C;--gold:#9A7330;--line:#E1E5DF}
+.hero{background:var(--surface);color:var(--ink);border-bottom:1px solid var(--line)}
+.hero .names{color:var(--accent)}
+.inv-open{color:var(--muted)}
+.hero .meta{color:var(--ink)}
+.hero .meta .heb{color:var(--muted)}
+.hero .count button{color:var(--accent)}
+.dots{border-color:var(--line);background:var(--surface);color:var(--ink)}
+.dots:hover{background:var(--soft)}
+.gacts{display:grid;grid-template-columns:2fr 1fr 1fr;gap:8px;margin-bottom:12px}
+.gacts .btn{justify-content:center}
+.srow{display:flex;gap:8px;width:100%}
+.srow input{flex:1;min-width:0}
+.ftog.on{border-color:var(--accent);color:var(--accent)}
+.frow{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:8px;width:100%}
+.toolbar{flex-direction:column;align-items:stretch}
+@media (max-width:700px){.desk-only{display:none!important}.frow{grid-template-columns:1fr 1fr}.frow select:last-child{grid-column:1/-1}}
 </style>
 
 <div dir="rtl" lang="he" id="app">
@@ -624,13 +644,15 @@ function guestRows(){
 function vGuests(){
   const g=gstats();const [a,b]=names();
   let h=banners();
-  h+='<div class="sec-head"><div><h2>מוזמנים '+evTo()+'</h2><div class="sub num">'+(set().lastSync?'עודכן מהטופס '+esc(new Date(set().lastSync).toLocaleString('he-IL',{day:'numeric',month:'numeric',hour:'2-digit',minute:'2-digit'}))+' · ':'')+fmt.format(g.households)+' רשומות · '+fmt.format(g.invited)+' אנשים · '+fmt.format(g.yes)+' מגיעים · '+fmt.format(g.pending+g.maybe)+' ממתינים · '+fmt.format(g.no)+' לא מגיעים</div>'+dietLine()+'</div><div class="chips">'+(mode==='api'?'<button class="btn primary" type="button" data-act="copyRsvp">העתקת קישור לאישור הגעה</button>':'<button class="btn primary" type="button" data-act="syncForm">משיכת תשובות מהטופס</button>')+'<button class="btn" type="button" data-act="waMenu">הודעות בוואטסאפ</button><button class="btn" type="button" data-act="guestMore">עוד פעולות</button><button class="btn primary" type="button" data-act="addGuest">+ מוזמן</button></div></div>';
-  h+='<div class="toolbar sticky"><input type="search" id="gq" placeholder="🔍 חיפוש מוזמן: שם, טלפון, קבוצה או שולחן" value="'+esc(ui.q)+'" aria-label="חיפוש מוזמנים">'
+  h+='<div class="sec-head"><div><h2>מוזמנים '+evTo()+'</h2><div class="sub num">'+fmt.format(g.invited)+' אנשים הוזמנו, '+fmt.format(g.yes)+' מגיעים</div>'+dietLine()+'</div></div>';
+  h+='<div class="gacts"><button class="btn primary" type="button" data-act="addGuest">+ מוזמן</button><button class="btn" type="button" data-act="waMenu">וואטסאפ</button><button class="btn" type="button" data-act="guestMore">עוד</button></div>';
+  const fOn=ui.gSide&&ui.gSide!=='all'||ui.gGroup&&ui.gGroup!=='all'||ui.sort&&ui.sort!=='name';
+  h+='<div class="toolbar sticky"><div class="srow"><input type="search" id="gq" placeholder="חיפוש לפי שם או טלפון" value="'+esc(ui.q)+'" aria-label="חיפוש מוזמנים"><button type="button" class="btn ftog'+(fOn?' on':'')+'" data-act="gFilt" aria-expanded="'+(!!ui.gFilt)+'">סינון'+(fOn?' •':'')+'</button></div><div class="frow"'+(ui.gFilt?'':' hidden')+'>'
    +'<select id="gSide" aria-label="צד"><option value="all">כל הצדדים</option><option value="a"'+(ui.gSide==='a'?' selected':'')+'>הצד של '+esc(a)+'</option><option value="b"'+(ui.gSide==='b'?' selected':'')+'>הצד של '+esc(b)+'</option><option value="both"'+(ui.gSide==='both'?' selected':'')+'>משותפים</option></select>'
    +'<select id="gGroup" aria-label="קבוצה"><option value="all">כל הקבוצות</option>'+GROUPS.map(x=>'<option value="'+x+'"'+(ui.gGroup===x?' selected':'')+'>'+x+'</option>').join('')+'<option value="__form"'+(ui.gGroup==='__form'?' selected':'')+'>נוספו מהטופס</option></select>'
    +'<select id="gSort" aria-label="מיון">'+[['name','מיון: שם'],['status','מיון: סטטוס'],['recent','מיון: עודכן לאחרונה'],['side','מיון: צד'],['group','מיון: קבוצה']].map(([k,l])=>'<option value="'+k+'"'+(ui.sort===k?' selected':'')+'>'+l+'</option>').join('')+'</select>'
-   +(dlApi?'<button class="btn" type="button" data-act="csv">הורדה לאקסל</button>':'')+'</div>';
-  h+='<form class="card qadd" id="qa" autocomplete="off"><input id="qaName" placeholder="+ הוספה מהירה: שם המוזמן" aria-label="שם מוזמן חדש" required><input id="qaPhone" type="tel" placeholder="טלפון" aria-label="טלפון"><label class="qn">כמה<input id="qaCount" type="number" inputmode="numeric" min="1" value="'+ui.qaCount+'" aria-label="כמה אנשים"></label>'
+   +'</div></div>';
+  h+='<form class="card qadd desk-only" id="qa" autocomplete="off"><input id="qaName" placeholder="+ הוספה מהירה: שם המוזמן" aria-label="שם מוזמן חדש" required><input id="qaPhone" type="tel" placeholder="טלפון" aria-label="טלפון"><label class="qn">כמה<input id="qaCount" type="number" inputmode="numeric" min="1" value="'+ui.qaCount+'" aria-label="כמה אנשים"></label>'
    +'<select id="qaSide" aria-label="צד"><option value="a"'+(ui.qaSide==='a'?' selected':'')+'>'+esc(a)+'</option><option value="b"'+(ui.qaSide==='b'?' selected':'')+'>'+esc(b)+'</option><option value="both"'+(ui.qaSide==='both'?' selected':'')+'>משותף</option></select>'
    +'<select id="qaGroup" aria-label="קבוצה"><option value="">קבוצה</option>'+GROUPS.map(x=>'<option'+(ui.qaGroup===x?' selected':'')+'>'+x+'</option>').join('')+'</select><button class="btn primary" type="submit">הוספה</button></form>';
   const cnt={all:0,pending:0,maybe:0,yes:0,no:0};Object.values(S.guests).forEach(x=>{cnt.all++;cnt[x.status||'pending']++;});
@@ -1025,8 +1047,9 @@ function venueSummary(){const txt=summaryText();const g=gstats();
   const c=$('#sumCopy');if(c)c.onclick=()=>{try{navigator.clipboard.writeText(txt).then(()=>toast('הסיכום הועתק'),()=>toast('לא הצלחתי להעתיק'));}catch(e){toast('לא הצלחתי להעתיק');}};}
 function menuModal(title,items){infoModal(title,'<div class="amenu">'+items.map((it,i)=>'<button type="button" data-mi="'+i+'"><b>'+esc(it[0])+'</b>'+(it[1]?'<span>'+esc(it[1])+'</span>':'')+'</button>').join('')+'</div>');
   $('#modalRoot').querySelectorAll('[data-mi]').forEach(b=>b.onclick=()=>{const it=items[+b.dataset.mi];$('#modalRoot').innerHTML='';it[2]();});}
+function copyRsvpLink(){const u=rsvpLink('');try{navigator.clipboard.writeText(u).then(()=>toast('הקישור הועתק. אפשר לשלוח בקבוצות'),()=>infoModal('קישור לאישור הגעה','<p dir="ltr" style="word-break:break-all">'+esc(u)+'</p>'));}catch(e){infoModal('קישור לאישור הגעה','<p dir="ltr" style="word-break:break-all">'+esc(u)+'</p>');}}
 function waMenu(){const w=Object.values(S.guests).filter(waiting).length,y=Object.values(S.guests).filter(x=>x.status==='yes').length;
-  menuModal('הודעות בוואטסאפ',[['הזמנה ואישור הגעה','לכל מי שעוד לא קיבל הזמנה, עם קישור אישי',()=>rsvpRound('invite')],['תזכורת למי שלא ענה',w+' ממתינים לתשובה',()=>rsvpRound('remind')],['הודעה יום לפני',y+' אישרו הגעה, עם שעה, מקום ווויז',()=>rsvpRound('day')]]);}
+  menuModal('הודעות בוואטסאפ',[['הזמנה ואישור הגעה','לכל מי שעוד לא קיבל הזמנה, עם קישור אישי',()=>rsvpRound('invite')],mode==='api'?['העתקת קישור כללי','לשליחה בקבוצות. מי שממלא נכנס לרשימה לבד',copyRsvpLink]:['משיכת תשובות מהטופס','עדכון הרשימה מטופס גוגל',syncForm],['תזכורת למי שלא ענה',w+' ממתינים לתשובה',()=>rsvpRound('remind')],['הודעה יום לפני',y+' אישרו הגעה, עם שעה, מקום ווויז',()=>rsvpRound('day')]]);}
 function guestMore(){const it=[['סיכום לאולם','כמה מגיעים, מנות מיוחדות וחלוקה לפי צד',venueSummary],['הוספת רשימה','הדבקה של הרבה מוזמנים בבת אחת',bulkForm],['ייבוא תשובות','הדבקת תשובות שהגיעו בוואטסאפ',importRsvpForm]];
   if(cur!=='wedding')it.push(['ייבוא מרשימת החתונה','בחירת מוזמנים מהחתונה',importWeddingPicker]);if(dlApi)it.push(['הורדה לאקסל','קובץ של כל הרשימה',downloadCsv]);menuModal('עוד פעולות',it);}
 function moreTabs(){menuModal('עוד',TABS.filter(([k])=>!['overview','guests','vendors','tasks'].includes(k)).map(([k,l])=>[l,'',()=>go(k)]));}
@@ -1227,8 +1250,8 @@ document.addEventListener('click',e=>{
 
   if(d.editTable)return tableForm(d.editTable);
   if(d.unseat){const g=S.guests[d.unseat];return put('guests',d.unseat,Object.assign({},g,{table:''}));}
-  const A={addGuest:()=>guestForm(),bulk:bulkForm,addVendor:()=>vendorForm(),plates:platesForm,addTask:()=>taskForm(),addTl:()=>tlForm(),addGift:()=>giftForm(),addVenue:()=>venueForm(),template:applyTemplate,csv:downloadCsv,round:()=>rsvpRound('invite'),remind:()=>rsvpRound('remind'),dayRound:()=>rsvpRound('day'),summary:venueSummary,waMenu:waMenu,guestMore:guestMore,moreTabs:moreTabs,syncForm:syncForm,importRsvp:importRsvpForm,addTable:()=>tableForm(),importWedding:importWeddingPicker,
-    copyRsvp:()=>{const u=rsvpLink('');try{navigator.clipboard.writeText(u).then(()=>toast('הקישור הועתק. אפשר לשלוח בקבוצות'),()=>infoModal('קישור לאישור הגעה','<p dir="ltr" style="word-break:break-all">'+esc(u)+'</p>'));}catch(e){infoModal('קישור לאישור הגעה','<p dir="ltr" style="word-break:break-all">'+esc(u)+'</p>');}},
+  const A={addGuest:()=>guestForm(),bulk:bulkForm,addVendor:()=>vendorForm(),plates:platesForm,addTask:()=>taskForm(),addTl:()=>tlForm(),addGift:()=>giftForm(),addVenue:()=>venueForm(),template:applyTemplate,csv:downloadCsv,round:()=>rsvpRound('invite'),remind:()=>rsvpRound('remind'),dayRound:()=>rsvpRound('day'),summary:venueSummary,waMenu:waMenu,gFilt:()=>{ui.gFilt=!ui.gFilt;render();},guestMore:guestMore,moreTabs:moreTabs,syncForm:syncForm,importRsvp:importRsvpForm,addTable:()=>tableForm(),importWedding:importWeddingPicker,
+    copyRsvp:()=>copyRsvpLink(),copyRsvpOld:()=>{const u=rsvpLink('');try{navigator.clipboard.writeText(u).then(()=>toast('הקישור הועתק. אפשר לשלוח בקבוצות'),()=>infoModal('קישור לאישור הגעה','<p dir="ltr" style="word-break:break-all">'+esc(u)+'</p>'));}catch(e){infoModal('קישור לאישור הגעה','<p dir="ltr" style="word-break:break-all">'+esc(u)+'</p>');}},
     copyContacts:()=>{const txt=sortedVendors().filter(([i,v])=>v.status==='booked'&&(v.name||v.phone)).map(([i,v])=>v.cat+': '+(v.name||'')+' '+(v.phone||'')).join('\n');try{navigator.clipboard.writeText(txt).then(()=>toast('הרשימה הועתקה, אפשר להדביק בוואטסאפ'),()=>toast('לא הצלחתי להעתיק'));}catch(err){toast('לא הצלחתי להעתיק');}},
     giftAvg:()=>{const s0=set();openForm('צפי מתנות',[{k:'giftAvg',label:'כמה בממוצע אורח נותן (₪)',type:'number',hint:'ממוצע לאדם, לא לזוג'}],{giftAvg:n(s0.giftAvg)||''},o=>put('settings','main',Object.assign({},s0,{giftAvg:o.giftAvg})));},addTables:addTablesForm};
   if(A[d.act])A[d.act]();
