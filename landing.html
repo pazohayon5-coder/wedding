@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#F8E1E4">
+<meta name="theme-color" content="#F1E6D6">
 <title>מתכננים חתונה, בלי האקסל</title>
 <meta name="description" content="אפליקציה אחת לכל תכנון החתונה: רשימת מוזמנים ואישורי הגעה בוואטסאפ, ספקים ועלויות מול התקציב, השוואת אולמות ותאריכים.">
 <meta property="og:title" content="מתכננים חתונה, בלי האקסל">
@@ -16,11 +16,11 @@
 </script>
 <style>
 :root{
-  --cream:#FFF9F4; --rose:#F8E1E4; --rose-2:#F2C9D0; --rose-ink:#B25C73;
-  --sage:#E1EEE3; --sage-ink:#4F7A5E; --lav:#ECE6F7; --lav-ink:#6B5A9A;
-  --peach:#FDE9DC; --peach-ink:#A8603A; --sky:#E2EEF7; --sky-ink:#3F6E8F; --butter:#FBF2D3; --butter-ink:#8A6D1E;
-  --ink:#3A3347; --muted:#776F84; --line:#EFE6E8; --card:#FFFFFF;
-  --btn:#B9607A; --btn-ink:#FFFFFF;
+  --cream:#FAF6EF; --rose:#F1E6D6; --rose-2:#E3D3BC; --rose-ink:#8C6A45;
+  --sage:#E1EEE3; --sage-ink:#4F7A5E; --lav:#ECE8DF; --lav-ink:#6B6455;
+  --peach:#FBE8D3; --peach-ink:#A8603A; --sky:#E2EEF7; --sky-ink:#3F6E8F; --butter:#FBF2D3; --butter-ink:#8A6D1E;
+  --ink:#3B3630; --muted:#7A7166; --line:#ECE3D6; --card:#FFFFFF;
+  --btn:#8C6A45; --btn-ink:#FFFFFF;
   --f-body:"Assistant","Segoe UI","Arial Hebrew",Arial,sans-serif;
   --f-display:"Frank Ruhl Libre","David","Times New Roman",serif;
   color-scheme:light;
@@ -33,13 +33,13 @@ a{color:var(--rose-ink)}
 .wrap{max-width:1060px;margin:0 auto;padding:0 18px}
 h1,h2,h3{font-family:var(--f-display);line-height:1.2;margin:0;color:var(--ink)}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:54px;padding:0 28px;border-radius:999px;border:0;
-  background:var(--btn);color:var(--btn-ink);font:800 18px var(--f-body);text-decoration:none;cursor:pointer;box-shadow:0 8px 22px rgba(185,96,122,.25)}
+  background:var(--btn);color:var(--btn-ink);font:800 18px var(--f-body);text-decoration:none;cursor:pointer;box-shadow:0 8px 22px rgba(140,106,69,.25)}
 .btn:active{transform:translateY(1px)}
 .btn.ghost{background:#fff;color:var(--ink);border:1.5px solid var(--rose-2);box-shadow:none}
 
 /* hero */
 .hero{position:relative;padding:44px 0 0;overflow:hidden;text-align:center;
-  background:radial-gradient(60% 50% at 100% 0%,var(--rose) 0%,transparent 70%),radial-gradient(55% 45% at 0% 20%,var(--lav) 0%,transparent 70%),radial-gradient(60% 40% at 50% 100%,var(--sage) 0%,transparent 70%),var(--cream)}
+  background:radial-gradient(60% 50% at 100% 0%,var(--rose) 0%,transparent 70%),radial-gradient(55% 45% at 0% 20%,var(--sky) 0%,transparent 70%),radial-gradient(60% 40% at 50% 100%,var(--sage) 0%,transparent 70%),var(--cream)}
 .hero .wrap{display:grid;gap:30px;align-items:end}
 .kicker{display:inline-block;background:#fff;color:var(--rose-ink);border:1px solid var(--rose-2);border-radius:999px;padding:4px 16px;font-weight:700;font-size:14px}
 .hero h1{font-size:clamp(36px,9vw,60px);font-weight:900;margin:16px 0 12px}
@@ -49,9 +49,9 @@ h1,h2,h3{font-family:var(--f-display);line-height:1.2;margin:0;color:var(--ink)}
 .hero .note{font-size:14px;color:var(--muted);margin:0 0 30px}
 
 /* phone mockup */
-.phone{width:min(300px,82vw);margin:0 auto;background:#fff;border:1px solid var(--line);border-radius:40px 40px 0 0;padding:12px 12px 0;box-shadow:0 -14px 50px rgba(178,92,115,.18)}
+.phone{width:min(300px,82vw);margin:0 auto;background:#fff;border:1px solid var(--line);border-radius:40px 40px 0 0;padding:12px 12px 0;box-shadow:0 -14px 50px rgba(140,106,69,.18)}
 .screen{background:var(--cream);border-radius:30px 30px 0 0;overflow:hidden;height:390px;font-size:13px;color:var(--ink);text-align:right}
-.s-head{background:linear-gradient(135deg,var(--rose),var(--lav));text-align:center;padding:16px 10px 12px}
+.s-head{background:linear-gradient(135deg,var(--rose),var(--sage));text-align:center;padding:16px 10px 12px}
 .s-head small{color:var(--muted);font-size:11px}
 .s-head b{display:block;font:900 26px var(--f-display);margin:2px 0;color:var(--ink)}
 .s-head b i{font-style:normal;color:var(--rose-ink);padding:0 4px;-webkit-box-decoration-break:clone;box-decoration-break:clone}
@@ -64,7 +64,7 @@ h1,h2,h3{font-family:var(--f-display);line-height:1.2;margin:0;color:var(--ink)}
 .s-card .t{font-size:11px;color:var(--muted);font-weight:700}
 .s-card .v{font:800 20px var(--f-body)}
 .s-card .v small{font-size:12px;color:var(--muted)}
-.bar{height:6px;border-radius:9px;background:#F3ECEE;margin-top:6px;overflow:hidden}
+.bar{height:6px;border-radius:9px;background:#EFE8DD;margin-top:6px;overflow:hidden}
 .bar i{display:block;height:100%;background:var(--sage-ink);border-radius:9px}
 .bar.g i{background:var(--lav-ink)}
 .s-list{margin:8px;background:#fff;border:1px solid var(--line);border-radius:14px}
@@ -89,7 +89,7 @@ section{padding:60px 0}
 .feat{border-radius:24px;padding:22px;background:var(--rose)}
 .feat .ic{width:48px;height:48px;border-radius:16px;background:rgba(255,255,255,.75);display:grid;place-items:center;margin-bottom:12px;color:var(--rose-ink)}
 .feat h3{font-size:22px;font-weight:700;margin-bottom:4px}
-.feat p{margin:0;color:#5E5669}
+.feat p{margin:0;color:#5F574D}
 .feat:nth-child(7n+2){background:var(--sage)}.feat:nth-child(7n+2) .ic{color:var(--sage-ink)}
 .feat:nth-child(7n+3){background:var(--lav)}.feat:nth-child(7n+3) .ic{color:var(--lav-ink)}
 .feat:nth-child(7n+4){background:var(--peach)}.feat:nth-child(7n+4) .ic{color:var(--peach-ink)}
@@ -100,11 +100,11 @@ section{padding:60px 0}
 .steps{display:grid;gap:0;counter-reset:s;max-width:640px;margin:0 auto;position:relative}
 .step{position:relative;padding:0 0 26px;padding-inline-start:62px}
 .step:last-child{padding-bottom:0}
-.step::before{counter-increment:s;content:counter(s);position:absolute;inset-inline-start:0;top:0;width:42px;height:42px;border-radius:50%;background:#fff;color:var(--lav-ink);font-weight:900;font-size:18px;display:grid;place-items:center;box-shadow:0 4px 12px rgba(107,90,154,.18);z-index:1}
-.step::after{content:"";position:absolute;inset-inline-start:20px;top:42px;bottom:0;border-inline-start:2px dashed rgba(107,90,154,.35)}
+.step::before{counter-increment:s;content:counter(s);position:absolute;inset-inline-start:0;top:0;width:42px;height:42px;border-radius:50%;background:#fff;color:var(--lav-ink);font-weight:900;font-size:18px;display:grid;place-items:center;box-shadow:0 4px 12px rgba(107,100,85,.18);z-index:1}
+.step::after{content:"";position:absolute;inset-inline-start:20px;top:42px;bottom:0;border-inline-start:2px dashed rgba(107,100,85,.35)}
 .step:last-child::after{display:none}
 .step b{display:block;font-size:19px;padding-top:7px}
-.step span{color:#5E5669}
+.step span{color:#5F574D}
 .story{background:var(--peach);border-radius:28px;padding:30px 24px;max-width:680px;margin:0 auto;text-align:center;position:relative}
 .story::before{content:"״";position:absolute;top:-6px;inset-inline-start:22px;font:900 90px/1 var(--f-display);color:rgba(168,96,58,.25)}
 .story p{font:500 21px/1.55 var(--f-display);margin:0}
@@ -119,22 +119,22 @@ section{padding:60px 0}
 .price ul{list-style:none;padding:0;margin:18px 0 0}
 .price li{padding:7px 0;padding-inline-start:30px;position:relative}
 .price li::before{content:"";position:absolute;inset-inline-start:2px;top:13px;width:14px;height:8px;border-left:3px solid var(--sage-ink);border-bottom:3px solid var(--sage-ink);transform:rotate(-45deg)}
-form.card{background:#fff;border:1px solid var(--line);border-radius:28px;padding:24px;box-shadow:0 12px 34px rgba(178,92,115,.08)}
+form.card{background:#fff;border:1px solid var(--line);border-radius:28px;padding:24px;box-shadow:0 12px 34px rgba(140,106,69,.08)}
 form h3{font-size:25px;margin-bottom:4px}
 form .sub{color:var(--muted);margin:0 0 16px;font-size:15px}
 label{display:block;font-weight:700;font-size:15px;margin:14px 0 6px}
 label .opt{font-weight:400;color:var(--muted)}
 input,select{width:100%;min-height:52px;border:1.5px solid var(--line);border-radius:16px;padding:0 14px;font:17px var(--f-body);color:var(--ink);background:var(--cream)}
-input:focus,select:focus{outline:none;border-color:var(--rose-ink);box-shadow:0 0 0 3px rgba(185,96,122,.15);background:#fff}
+input:focus,select:focus{outline:none;border-color:var(--rose-ink);box-shadow:0 0 0 3px rgba(140,106,69,.15);background:#fff}
 .chips{display:flex;flex-wrap:wrap;gap:8px}
 .chips input{position:absolute;opacity:0;width:1px;height:1px}
 .chips label{margin:0;font-weight:600;border:1.5px solid var(--line);background:var(--cream);border-radius:999px;padding:9px 14px;cursor:pointer;font-size:15px;min-height:44px;display:flex;align-items:center}
 .chips input:checked+label{background:var(--rose);border-color:var(--rose-ink);color:var(--rose-ink)}
-.chips input:focus-visible+label{box-shadow:0 0 0 3px rgba(185,96,122,.25)}
+.chips input:focus-visible+label{box-shadow:0 0 0 3px rgba(140,106,69,.25)}
 form .btn{width:100%;margin-top:22px}
 .fine{font-size:13px;color:var(--muted);text-align:center;margin:10px 0 0}
 .msg{display:none;margin-top:14px;padding:12px 14px;border-radius:14px;font-weight:600}
-.msg.err{display:block;background:var(--rose);color:#8E3A50}
+.msg.err{display:block;background:#F6E2D8;color:#8A3B2E}
 .done{display:none;text-align:center;padding:20px 6px}
 .done .big{font:900 30px var(--f-display);margin:8px 0}
 .faq details{background:#fff;border:1px solid var(--line);border-radius:18px;padding:4px 18px;margin-bottom:10px}
@@ -144,7 +144,7 @@ form .btn{width:100%;margin-top:22px}
 .faq details[open] summary::after{content:"−"}
 .faq p{margin:0 0 14px;color:var(--muted)}
 footer{padding:34px 0 96px;text-align:center;color:var(--muted);font-size:14px;background:linear-gradient(transparent,var(--rose))}
-.sticky{position:fixed;inset-inline:0;bottom:0;padding:10px 16px calc(10px + env(safe-area-inset-bottom));background:rgba(255,249,244,.94);backdrop-filter:blur(8px);border-top:1px solid var(--line);display:flex;justify-content:center;transform:translateY(110%);transition:transform .25s}
+.sticky{position:fixed;inset-inline:0;bottom:0;padding:10px 16px calc(10px + env(safe-area-inset-bottom));background:rgba(250,246,239,.94);backdrop-filter:blur(8px);border-top:1px solid var(--line);display:flex;justify-content:center;transform:translateY(110%);transition:transform .25s}
 .sticky.show{transform:none}
 .sticky .btn{width:100%;max-width:420px}
 
@@ -175,7 +175,7 @@ footer{padding:34px 0 96px;text-align:center;color:var(--muted);font-size:14px;b
         <a class="btn" href="#join" data-ev="cta_hero">אני רוצה גישה מוקדמת</a>
         <a class="btn ghost" href="#features">מה יש בפנים?</a>
       </div>
-      <p class="note">התכנון בחינם, ואישורי הגעה בחינם עד 30 מוזמנים. בלי התחייבות.</p>
+      <p class="note">10 ימים ראשונים בחינם, ואישורי הגעה בחינם עד 30 מוזמנים. בלי התחייבות.</p>
     </div>
     <div class="phone" aria-hidden="true">
       <div class="screen">
@@ -283,13 +283,13 @@ footer{padding:34px 0 96px;text-align:center;color:var(--muted);font-size:14px;b
       <div class="offer">
         <div class="price">
           <span class="tag">גישה מוקדמת</span>
-          <div class="amt">חינם</div>
-          <div class="was">כל כלי התכנון, ואישורי הגעה עד 30 מוזמנים. לחתונה גדולה יותר, מחיר מוזל למצטרפים הראשונים.</div>
+          <div class="amt">10 ימים חינם</div>
+          <div class="was">כל הכלים פתוחים לכם ל-10 ימים בלי תשלום, ואישורי הגעה עד 30 מוזמנים בחינם. אחר כך, מחיר מוזל למצטרפים הראשונים.</div>
           <ul>
-            <li>ספקים, תקציב, השוואת אולמות, הושבה, תאריכים ומשימות: בחינם</li>
+            <li>10 ימים ראשונים: כל הכלים בחינם, כולל הושבה והשוואת אולמות</li>
             <li>אישורי הגעה בקישור אישי בוואטסאפ: בחינם עד 30 מוזמנים</li>
             <li>חינה ושבת חתן כלולים</li>
-            <li>מעל 30 מוזמנים: מחיר מוזל לזוגות הראשונים</li>
+            <li>אחרי 10 הימים: מחיר מוזל לזוגות הראשונים</li>
           </ul>
         </div>
 
