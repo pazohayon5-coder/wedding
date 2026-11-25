@@ -1,0 +1,386 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0D2B5E">
+<title>מתכננים חתונה, בלי האקסל</title>
+<meta name="description" content="אפליקציה אחת לכל תכנון החתונה: רשימת מוזמנים ואישורי הגעה בוואטסאפ, ספקים ועלויות מול התקציב, השוואת אולמות ותאריכים.">
+<meta property="og:title" content="מתכננים חתונה, בלי האקסל">
+<meta property="og:description" content="מוזמנים, אישורי הגעה בוואטסאפ, ספקים ותקציב. הכל במקום אחד, מהטלפון.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700;900&family=Assistant:wght@400;600;700;800&display=swap" rel="stylesheet">
+<script>
+  // כתובת שרת ההרשמות (Apps Script נפרד, לא של האפליקציה). ריק = הטופס עוד לא מחובר.
+  window.LANDING_API = 'https://script.google.com/macros/s/AKfycbzrruLsYInbXOpooAXdM-dIar3NkLWUL2Gtlix4qFzoR3VpX5Kt9d02N_SuAzLAKKVj/exec';
+</script>
+<style>
+:root{
+  --band:#0D2B5E; --band-2:#14397A; --accent:#1A4BA0; --gold:#E3A800; --gold-soft:#FFF4CC;
+  --bg:#F3F6FB; --card:#FFFFFF; --ink:#13213A; --muted:#5B6782; --line:#DDE4F0; --good:#1F7A4D;
+  --f-body:"Assistant","Segoe UI","Arial Hebrew",Arial,sans-serif;
+  --f-display:"Frank Ruhl Libre","David","Times New Roman",serif;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.6 var(--f-body);-webkit-text-size-adjust:100%}
+img{max-width:100%}
+a{color:var(--accent)}
+.wrap{max-width:1040px;margin:0 auto;padding:0 18px}
+h1,h2,h3{font-family:var(--f-display);line-height:1.2;margin:0}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:52px;padding:0 26px;border-radius:999px;border:0;
+  background:var(--gold);color:#1B1400;font:800 18px var(--f-body);text-decoration:none;cursor:pointer;box-shadow:0 6px 18px rgba(227,168,0,.35)}
+.btn:active{transform:translateY(1px)}
+.btn.ghost{background:transparent;color:#fff;border:1.5px solid rgba(255,255,255,.5);box-shadow:none}
+
+/* hero */
+.hero{background:radial-gradient(120% 90% at 85% 0%,var(--band-2) 0%,var(--band) 60%);color:#fff;padding:34px 0 0;overflow:hidden}
+.hero .wrap{display:grid;gap:28px;align-items:end}
+.kicker{display:inline-block;background:rgba(227,168,0,.16);color:var(--gold);border:1px solid rgba(227,168,0,.4);border-radius:999px;padding:3px 14px;font-weight:700;font-size:14px}
+.hero h1{font-size:clamp(34px,8.5vw,56px);font-weight:900;margin:14px 0 12px}
+.hero h1 em{font-style:normal;color:var(--gold)}
+.hero p.lead{font-size:19px;color:#D5DFF2;margin:0 0 22px;max-width:34ch}
+.hero .ctas{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:12px}
+.hero .note{font-size:14px;color:#AFC0E2;margin:0 0 26px}
+
+/* phone mockup */
+.phone{width:min(300px,82vw);margin:0 auto;background:#0A1A38;border-radius:38px 38px 0 0;padding:12px 12px 0;box-shadow:0 -10px 50px rgba(0,0,0,.35)}
+.screen{background:var(--bg);border-radius:28px 28px 0 0;overflow:hidden;height:390px;font-size:13px;color:var(--ink)}
+.s-head{background:var(--band);color:#fff;text-align:center;padding:16px 10px 12px}
+.s-head small{color:#B9C8E6;font-size:11px}
+.s-head b{display:block;font:900 26px var(--f-display);margin:2px 0}
+.s-head b i{font-style:normal;color:var(--gold);padding:0 4px}
+.s-head .cd{color:var(--gold);font-weight:800;font-size:12px}
+.s-tabs{display:flex;gap:4px;padding:8px;overflow:hidden}
+.s-tabs span{flex:none;padding:4px 10px;border-radius:999px;background:#fff;border:1px solid var(--line);font-size:11px;font-weight:700;color:var(--muted)}
+.s-tabs span.on{background:var(--accent);border-color:var(--accent);color:#fff}
+.s-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:0 8px}
+.s-card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:9px}
+.s-card .t{font-size:11px;color:var(--muted);font-weight:700}
+.s-card .v{font:800 20px var(--f-body)}
+.s-card .v small{font-size:12px;color:var(--muted)}
+.bar{height:6px;border-radius:9px;background:#E7ECF5;margin-top:6px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--accent);border-radius:9px}
+.bar.g i{background:var(--gold)}
+.s-list{margin:8px;background:#fff;border:1px solid var(--line);border-radius:12px}
+.s-row{display:flex;align-items:center;justify-content:space-between;padding:7px 10px;border-top:1px solid var(--line);font-size:12px}
+.s-row:first-child{border-top:0}
+.pill{font-size:10px;font-weight:800;border-radius:999px;padding:1px 8px}
+.pill.y{background:#E2F3E9;color:var(--good)}
+.pill.p{background:var(--gold-soft);color:#8A6400}
+.pill.n{background:#F8E4E1;color:#B0453A}
+
+/* sections */
+section{padding:56px 0}
+.sec-title{text-align:center;margin-bottom:28px}
+.sec-title h2{font-size:clamp(28px,6.5vw,40px);font-weight:900}
+.sec-title p{color:var(--muted);margin:8px auto 0;max-width:46ch}
+.pains{display:grid;gap:12px}
+.pain{background:#fff;border:1px solid var(--line);border-radius:16px;padding:16px 18px;display:flex;gap:12px;align-items:flex-start}
+.pain .x{flex:none;width:28px;height:28px;border-radius:50%;background:#F8E4E1;color:#B0453A;display:grid;place-items:center;font-weight:900}
+.features{display:grid;gap:14px}
+.feat{background:#fff;border:1px solid var(--line);border-radius:18px;padding:20px}
+.feat .ic{width:46px;height:46px;border-radius:14px;background:#E8EEFA;color:var(--accent);display:grid;place-items:center;margin-bottom:10px}
+.feat h3{font-size:22px;font-weight:700;margin-bottom:4px}
+.feat p{margin:0;color:var(--muted)}
+.how{background:var(--band);color:#fff}
+.how .sec-title p{color:#B9C8E6}
+.steps{display:grid;gap:14px;counter-reset:s}
+.step{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);border-radius:18px;padding:18px 18px 18px 18px;position:relative;padding-inline-start:64px}
+.step::before{counter-increment:s;content:counter(s);position:absolute;inset-inline-start:16px;top:16px;width:34px;height:34px;border-radius:50%;background:var(--gold);color:#1B1400;font-weight:900;display:grid;place-items:center}
+.step b{display:block;font-size:19px}
+.step span{color:#C9D5EC}
+.story{background:#fff;border:1px solid var(--line);border-radius:20px;padding:24px;max-width:680px;margin:0 auto;text-align:center}
+.story p{font-size:19px;margin:0}
+.story .by{color:var(--muted);font-size:15px;margin-top:10px}
+
+/* price + form */
+.offer{display:grid;gap:18px;align-items:start}
+.price{background:var(--band);color:#fff;border-radius:22px;padding:26px;position:relative;overflow:hidden}
+.price .tag{display:inline-block;background:var(--gold);color:#1B1400;font-weight:800;border-radius:999px;padding:2px 12px;font-size:14px}
+.price .amt{font:900 56px/1 var(--f-display);margin:14px 0 4px}
+.price .amt small{font-size:26px}
+.price .was{color:#B9C8E6}
+.price .was s{color:#fff}
+.price ul{list-style:none;padding:0;margin:18px 0 0}
+.price li{padding:6px 0;padding-inline-start:28px;position:relative}
+.price li::before{content:"";position:absolute;inset-inline-start:0;top:12px;width:16px;height:9px;border-left:3px solid var(--gold);border-bottom:3px solid var(--gold);transform:rotate(-45deg)}
+form.card{background:#fff;border:1px solid var(--line);border-radius:22px;padding:22px}
+form h3{font-size:24px;margin-bottom:4px}
+form .sub{color:var(--muted);margin:0 0 16px;font-size:15px}
+label{display:block;font-weight:700;font-size:15px;margin:12px 0 6px}
+label .opt{font-weight:400;color:var(--muted)}
+input,select{width:100%;min-height:50px;border:1.5px solid var(--line);border-radius:12px;padding:0 14px;font:17px var(--f-body);color:var(--ink);background:#fff}
+input:focus,select:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(26,75,160,.15)}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chips input{position:absolute;opacity:0;width:1px;height:1px}
+.chips label{margin:0;font-weight:600;border:1.5px solid var(--line);border-radius:999px;padding:9px 14px;cursor:pointer;font-size:15px;min-height:44px;display:flex;align-items:center}
+.chips input:checked+label{background:#E8EEFA;border-color:var(--accent);color:var(--accent)}
+.chips input:focus-visible+label{box-shadow:0 0 0 3px rgba(26,75,160,.25)}
+form .btn{width:100%;margin-top:20px}
+.fine{font-size:13px;color:var(--muted);text-align:center;margin:10px 0 0}
+.msg{display:none;margin-top:14px;padding:12px 14px;border-radius:12px;font-weight:600}
+.msg.err{display:block;background:#F8E4E1;color:#8E2F25}
+.done{display:none;text-align:center;padding:20px 6px}
+.done .big{font:900 30px var(--f-display);margin:8px 0}
+.faq details{background:#fff;border:1px solid var(--line);border-radius:14px;padding:4px 18px;margin-bottom:10px}
+.faq summary{cursor:pointer;font-weight:700;padding:12px 0;list-style:none}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";float:left;color:var(--accent);font-size:22px;line-height:1}
+.faq details[open] summary::after{content:"−"}
+.faq p{margin:0 0 14px;color:var(--muted)}
+footer{padding:30px 0 90px;text-align:center;color:var(--muted);font-size:14px}
+.sticky{position:fixed;inset-inline:0;bottom:0;padding:10px 16px calc(10px + env(safe-area-inset-bottom));background:rgba(243,246,251,.94);backdrop-filter:blur(8px);border-top:1px solid var(--line);display:flex;justify-content:center;transform:translateY(110%);transition:transform .25s}
+.sticky.show{transform:none}
+.sticky .btn{width:100%;max-width:420px}
+
+@media (min-width:860px){
+  .hero{padding-top:56px}
+  .hero .wrap{grid-template-columns:1.1fr .9fr}
+  .hero p.lead{font-size:21px}
+  .pains{grid-template-columns:1fr 1fr}
+  .features{grid-template-columns:repeat(3,1fr)}
+  .steps{grid-template-columns:repeat(3,1fr)}
+  .offer{grid-template-columns:.9fr 1.1fr}
+  .sticky{display:none}
+  footer{padding-bottom:30px}
+}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <div>
+      <span class="kicker">גישה מוקדמת לזוגות מתחתנים</span>
+      <h1>מתכננים חתונה, <em>בלי האקסל.</em></h1>
+      <p class="lead">רשימת המוזמנים, אישורי ההגעה בוואטסאפ, הספקים והתקציב. הכל במקום אחד, מהטלפון, לשניכם ביחד.</p>
+      <div class="ctas">
+        <a class="btn" href="#join" data-ev="cta_hero">אני רוצה גישה מוקדמת</a>
+        <a class="btn ghost" href="#features">מה יש בפנים?</a>
+      </div>
+      <p class="note">התכנון בחינם, ואישורי הגעה בחינם עד 30 מוזמנים. בלי התחייבות.</p>
+    </div>
+    <div class="phone" aria-hidden="true">
+      <div class="screen">
+        <div class="s-head">
+          <small>בשעה טובה ומוצלחת</small>
+          <b>נועה <i>&amp;</i> איתי</b>
+          <small>יום שישי · 11 ביוני 2027 · אולם הדוגמה</small>
+          <div class="cd">עוד 198 ימים</div>
+        </div>
+        <div class="s-tabs"><span class="on">סקירה</span><span>מוזמנים</span><span>ספקים</span><span>אולמות</span><span>תאריכים</span></div>
+        <div class="s-grid">
+          <div class="s-card"><div class="t">אישרו הגעה</div><div class="v">212 <small>/ 340</small></div><div class="bar"><i style="width:62%"></i></div></div>
+          <div class="s-card"><div class="t">עלות מול תקציב</div><div class="v">68%</div><div class="bar g"><i style="width:68%"></i></div></div>
+        </div>
+        <div class="s-list">
+          <div class="s-row"><span>משפחת לוי · 4</span><span class="pill y">מגיעים</span></div>
+          <div class="s-row"><span>דנה מהעבודה · 2</span><span class="pill p">עוד לא ענו</span></div>
+          <div class="s-row"><span>סבתא רחל · 1</span><span class="pill y">מגיעה</span></div>
+          <div class="s-row"><span>יוסי ושירה · 2</span><span class="pill n">לא מגיעים</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section>
+    <div class="wrap">
+      <div class="sec-title"><h2>מכירים את זה?</h2></div>
+      <div class="pains">
+        <div class="pain"><span class="x">✕</span><div>שלושה קבצי אקסל, שתי קבוצות וואטסאפ, ואף אחד לא יודע מה הגרסה העדכנית.</div></div>
+        <div class="pain"><span class="x">✕</span><div>רודפים אחרי אורחים שלא ענו, ומעתיקים תשובות ידנית לרשימה.</div></div>
+        <div class="pain"><span class="x">✕</span><div>לא ברור כמה כבר שילמתם, כמה נשאר, ואם המתנות בכלל יכסו.</div></div>
+        <div class="pain"><span class="x">✕</span><div>משווים אולמות ומחירי מנה על דפים ופתקים בטלפון.</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="features" style="padding-top:8px">
+    <div class="wrap">
+      <div class="sec-title"><h2>הכל במקום אחד</h2><p>נבנה במקור לזוג חברים שמתחתן, ועכשיו פותחים אותו לעוד זוגות.</p></div>
+      <div class="features">
+        <div class="feat">
+          <div class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+          <h3>מוזמנים ואישורי הגעה</h3>
+          <p>שולחים לכל אורח קישור אישי בוואטסאפ. הוא עונה, והרשימה מתעדכנת לבד. רואים בכל רגע מי אישר, מי לא ענה ומי לא מגיע.</p>
+        </div>
+        <div class="feat">
+          <div class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="14" rx="2"/><path d="M16 6V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg></div>
+          <h3>ספקים ועלויות מול התקציב</h3>
+          <p>כל ספק עם המחיר, המקדמה והתשלומים. מחיר למנה כפול מספר המאשרים מחושב אוטומטית, ותחזית מתנות מראה אם אתם מכוסים.</p>
+        </div>
+        <div class="feat">
+          <div class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></div>
+          <h3>אולמות ותאריכים</h3>
+          <p>משווים אולמות לפי מחיר מנה ומינימום אורחים, ורואים את ימי השישי של הקיץ עם שעות כניסת ויציאת שבת לפי עיר.</p>
+        </div>
+        <div class="feat">
+          <div class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3 6.5 7 .9-5 4.8 1.2 7L12 18l-6.2 3.2 1.2-7-5-4.8 7-.9z"/></svg></div>
+          <h3>חינה ושבת חתן</h3>
+          <p>כל אירוע עם רשימת מוזמנים ותקציב משלו, ואפשר לייבא מוזמנים מהחתונה בלחיצה.</p>
+        </div>
+        <div class="feat">
+          <div class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div>
+          <h3>משימות ולו״ז</h3>
+          <p>מה צריך לסגור ועד מתי, ולו״ז ליום החתונה עם הטלפונים של כל הספקים במקום אחד.</p>
+        </div>
+        <div class="feat">
+          <div class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M12 18h.01"/></svg></div>
+          <h3>מהטלפון, לשניכם</h3>
+          <p>בלי להוריד שום דבר. נכנסים מכל טלפון או מחשב, ושני בני הזוג רואים ועורכים את אותם נתונים.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="how">
+    <div class="wrap">
+      <div class="sec-title"><h2>איך זה עובד</h2><p>שלוש דקות ואתם בפנים.</p></div>
+      <div class="steps">
+        <div class="step"><b>נרשמים לגישה מוקדמת</b><span>משאירים שם וטלפון, בלי תשלום.</span></div>
+        <div class="step"><b>מקבלים קישור אישי</b><span>אתר פרטי לחתונה שלכם, עם קוד כניסה רק לכם.</span></div>
+        <div class="step"><b>מכניסים את הרשימה</b><span>מדביקים את המוזמנים, שולחים קישורים בוואטסאפ, וזהו.</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding-bottom:20px">
+    <div class="wrap">
+      <div class="story">
+        <p>״בניתי את זה במתנה לזוג חברים שמתחתנים, כי ראיתי כמה הם מתבלבלים בין קבצים וקבוצות. כשראיתי שזה עובד להם, החלטתי לפתוח את זה לעוד זוגות.״</p>
+        <div class="by">מי שבנה את האפליקציה</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="join">
+    <div class="wrap">
+      <div class="sec-title"><h2>הצטרפו לגישה המוקדמת</h2><p>הזוגות הראשונים מקבלים מחיר מוזל, ועוזרים לנו להחליט מה עוד להוסיף.</p></div>
+      <div class="offer">
+        <div class="price">
+          <span class="tag">גישה מוקדמת</span>
+          <div class="amt">חינם</div>
+          <div class="was">כל כלי התכנון, ואישורי הגעה עד 30 מוזמנים. לחתונה גדולה יותר, מחיר מוזל למצטרפים הראשונים.</div>
+          <ul>
+            <li>ספקים, תקציב, אולמות, תאריכים ומשימות: בחינם</li>
+            <li>אישורי הגעה בקישור אישי בוואטסאפ: בחינם עד 30 מוזמנים</li>
+            <li>חינה ושבת חתן כלולים</li>
+            <li>מעל 30 מוזמנים: מחיר מוזל לזוגות הראשונים</li>
+          </ul>
+        </div>
+
+        <form class="card" id="f" novalidate>
+          <div id="formBody">
+            <h3>שמרו לי מקום</h3>
+            <p class="sub">לא גובים כלום עכשיו. נשלח לכם הודעה בוואטסאפ כשנפתח.</p>
+
+            <label for="name">שם</label>
+            <input id="name" name="name" autocomplete="name" required maxlength="80" placeholder="למשל: נועה">
+
+            <label for="phone">טלפון לוואטסאפ</label>
+            <input id="phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" required maxlength="20" placeholder="050-0000000" dir="ltr" style="text-align:right">
+
+            <label for="when">מתי החתונה?</label>
+            <select id="when" name="when" required>
+              <option value="">בחרו</option>
+              <option>עד 3 חודשים</option>
+              <option>3 עד 6 חודשים</option>
+              <option>6 עד 12 חודשים</option>
+              <option>יותר משנה</option>
+              <option>עוד לא קבענו תאריך</option>
+            </select>
+
+            <label for="guests">כמה מוזמנים בערך? <span class="opt">(לא חובה)</span></label>
+            <select id="guests" name="guests">
+              <option value="">בחרו</option>
+              <option>עד 30</option><option>30 עד 150</option><option>150 עד 300</option><option>300 עד 500</option><option>יותר מ-500</option><option>עוד לא יודעים</option>
+            </select>
+
+            <label>מה הכי מעיק עליכם עכשיו? <span class="opt">(אפשר כמה)</span></label>
+            <div class="chips" id="pains">
+              <input type="checkbox" id="p1" value="מוזמנים ואישורי הגעה"><label for="p1">מוזמנים ואישורים</label>
+              <input type="checkbox" id="p2" value="תקציב ועלויות"><label for="p2">תקציב ועלויות</label>
+              <input type="checkbox" id="p3" value="בחירת אולם וספקים"><label for="p3">אולם וספקים</label>
+              <input type="checkbox" id="p4" value="תיאום בינינו"><label for="p4">תיאום בינינו</label>
+            </div>
+
+            <label>כמה הייתם מוכנים לשלם על אישורי הגעה לכל המוזמנים, יחד עם כל הכלים? <span class="opt">(רק כדי שנדע)</span></label>
+            <div class="chips" id="pay">
+              <input type="radio" name="pay" id="y1" value="רק בחינם"><label for="y1">רק בחינם</label>
+              <input type="radio" name="pay" id="y2" value="עד 200"><label for="y2">עד 200 ₪</label>
+              <input type="radio" name="pay" id="y3" value="200-400"><label for="y3">200 עד 400 ₪</label>
+              <input type="radio" name="pay" id="y4" value="400-600"><label for="y4">400 עד 600 ₪</label>
+              <input type="radio" name="pay" id="y5" value="מעל 600"><label for="y5">יותר מ-600&nbsp;₪</label>
+            </div>
+
+            <button class="btn" type="submit" id="go">שמרו לי מקום</button>
+            <div class="msg" id="msg" role="alert"></div>
+            <p class="fine">נשתמש בפרטים רק כדי לעדכן אתכם על הפתיחה.</p>
+          </div>
+          <div class="done" id="done">
+            <div style="font-size:44px">🎉</div>
+            <div class="big">שמרנו לכם מקום!</div>
+            <p>נשלח לכם הודעה בוואטסאפ כשנפתח. ומזל טוב!</p>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <section class="faq" style="padding-top:10px">
+    <div class="wrap" style="max-width:720px">
+      <div class="sec-title"><h2>שאלות</h2></div>
+      <details><summary>צריך להוריד אפליקציה?</summary><p>לא. זה אתר שעובד מכל טלפון ומחשב. אפשר להוסיף אותו למסך הבית ולהשתמש בו כמו באפליקציה.</p></details>
+      <details><summary>האורחים צריכים להירשם למשהו?</summary><p>לא. האורח מקבל קישור בוואטסאפ, לוחץ, עונה אם הוא מגיע וכמה, וזהו.</p></details>
+      <details><summary>מי רואה את הנתונים שלנו?</summary><p>רק מי שיש לו את קוד הכניסה שלכם. האורחים רואים רק את דף אישור ההגעה.</p></details>
+      <details><summary>למה לא פשוט אקסל?</summary><p>אקסל לא שולח קישורים לאורחים, לא מתעדכן לבד כשהם עונים, ולא מחשב לכם עלות לפי מספר המאשרים. כאן הכל קורה לבד.</p></details>
+      <details><summary>מתי זה נפתח?</summary><p>אנחנו פותחים בהדרגה לזוגות שנרשמו, לפי סדר ההרשמה.</p></details>
+    </div>
+  </section>
+</main>
+
+<footer>נבנה באהבה בישראל 💍</footer>
+<div class="sticky" id="sticky"><a class="btn" href="#join" data-ev="cta_sticky">אני רוצה גישה מוקדמת</a></div>
+
+<script>
+(function(){
+  var API = window.LANDING_API;
+  var qs = new URLSearchParams(location.search);
+  var src = (qs.get('src') || qs.get('utm_source') || document.referrer.replace(/^https?:\/\/([^\/]+).*/,'$1') || 'direct').slice(0,60);
+  var vid; try { vid = localStorage.getItem('lv') || Math.random().toString(36).slice(2,10); localStorage.setItem('lv', vid); } catch(e){ vid = Math.random().toString(36).slice(2,10); }
+
+  function ping(ev){ if(!API) return; try { navigator.sendBeacon ? navigator.sendBeacon(API, JSON.stringify({action:'ev', ev:ev, src:src, vid:vid})) : fetch(API,{method:'POST',body:JSON.stringify({action:'ev',ev:ev,src:src,vid:vid}),mode:'no-cors'}); } catch(e){} }
+  ping('view');
+  document.querySelectorAll('[data-ev]').forEach(function(a){ a.addEventListener('click', function(){ ping(a.getAttribute('data-ev')); }); });
+
+  // sticky CTA on phones once the hero is out of view and before the form
+  var sticky = document.getElementById('sticky'), join = document.getElementById('join'), hero = document.querySelector('.hero');
+  function onScroll(){ var y = window.scrollY, h = hero.offsetHeight, j = join.getBoundingClientRect().top; sticky.classList.toggle('show', y > h*0.8 && j > window.innerHeight*0.6); }
+  window.addEventListener('scroll', onScroll, {passive:true}); onScroll();
+
+  var f = document.getElementById('f'), msg = document.getElementById('msg'), go = document.getElementById('go');
+  function err(t){ msg.textContent = t; msg.className = 'msg err'; }
+  f.addEventListener('submit', function(e){
+    e.preventDefault(); msg.className = 'msg';
+    var nameEl=document.getElementById('name'), phoneEl=document.getElementById('phone'), whenEl=document.getElementById('when');
+    var name = nameEl.value.trim(), phone = phoneEl.value.trim(), when = whenEl.value;
+    if (!name) return err('מה השם?'), nameEl.focus();
+    if (phone.replace(/\D/g,'').length < 9) return err('צריך מספר טלפון תקין'), phoneEl.focus();
+    if (!when) return err('מתי החתונה? (אפשר "עוד לא קבענו")'), whenEl.focus();
+    if (!API) return err('הטופס עוד לא מחובר לשרת. זו גרסת תצוגה.');
+    var pains = [].map.call(document.querySelectorAll('#pains input:checked'), function(i){ return i.value; }).join(', ');
+    var pay = (document.querySelector('#pay input:checked') || {}).value || '';
+    go.disabled = true; go.textContent = 'שולח...';
+    fetch(API, { method:'POST', body: JSON.stringify({ action:'signup', name:name, phone:phone, when:when, guests:document.getElementById('guests').value, pains:pains, pay:pay, src:src, vid:vid }) })
+      .then(function(r){ return r.json(); })
+      .then(function(r){ if (!r.ok) throw 0; document.getElementById('formBody').style.display='none'; document.getElementById('done').style.display='block'; sticky.remove(); })
+      .catch(function(){ go.disabled = false; go.textContent = 'שמרו לי מקום'; err('משהו השתבש. נסו שוב בעוד רגע.'); });
+  });
+})();
+</script>
+</body>
+</html>
