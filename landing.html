@@ -99,7 +99,7 @@ section{padding:56px 0}
 .offer{display:grid;gap:18px;align-items:start}
 .price{background:var(--band);color:#fff;border-radius:22px;padding:26px;position:relative;overflow:hidden}
 .price .tag{display:inline-block;background:var(--gold);color:#1B1400;font-weight:800;border-radius:999px;padding:2px 12px;font-size:14px}
-.price .amt{font:900 64px/1 var(--f-body);margin:14px 0 4px}
+.price .amt{font:900 56px/1 var(--f-display);margin:14px 0 4px}
 .price .amt small{font-size:26px}
 .price .was{color:#B9C8E6}
 .price .was s{color:#fff}
@@ -153,14 +153,14 @@ footer{padding:30px 0 90px;text-align:center;color:var(--muted);font-size:14px}
 <header class="hero">
   <div class="wrap">
     <div>
-      <span class="kicker">גישה מוקדמת לזוגות מתחתנים</span>
+      <span class="kicker">גישה מוקדמת בחינם לזוגות מתחתנים</span>
       <h1>מתכננים חתונה, <em>בלי האקסל.</em></h1>
       <p class="lead">רשימת המוזמנים, אישורי ההגעה בוואטסאפ, הספקים והתקציב. הכל במקום אחד, מהטלפון, לשניכם ביחד.</p>
       <div class="ctas">
         <a class="btn" href="#join" data-ev="cta_hero">אני רוצה גישה מוקדמת</a>
         <a class="btn ghost" href="#features">מה יש בפנים?</a>
       </div>
-      <p class="note">בלי התחייבות ובלי תשלום עכשיו. נעדכן כשנפתח.</p>
+      <p class="note">בחינם לזוגות הראשונים, בלי התחייבות.</p>
     </div>
     <div class="phone" aria-hidden="true">
       <div class="screen">
@@ -241,7 +241,7 @@ footer{padding:30px 0 90px;text-align:center;color:var(--muted);font-size:14px}
     <div class="wrap">
       <div class="sec-title"><h2>איך זה עובד</h2><p>שלוש דקות ואתם בפנים.</p></div>
       <div class="steps">
-        <div class="step"><b>נרשמים לגישה מוקדמת</b><span>משאירים שם וטלפון, בלי תשלום.</span></div>
+        <div class="step"><b>נרשמים לגישה מוקדמת</b><span>משאירים שם וטלפון, בחינם.</span></div>
         <div class="step"><b>מקבלים קישור אישי</b><span>אתר פרטי לחתונה שלכם, עם קוד כניסה רק לכם.</span></div>
         <div class="step"><b>מכניסים את הרשימה</b><span>מדביקים את המוזמנים, שולחים קישורים בוואטסאפ, וזהו.</span></div>
       </div>
@@ -252,31 +252,31 @@ footer{padding:30px 0 90px;text-align:center;color:var(--muted);font-size:14px}
     <div class="wrap">
       <div class="story">
         <p>״בניתי את זה במתנה לזוג חברים שמתחתנים, כי ראיתי כמה הם מתבלבלים בין קבצים וקבוצות. כשראיתי שזה עובד להם, החלטתי לפתוח את זה לעוד זוגות.״</p>
-        <div class="by">פז, מי שבנה את האפליקציה</div>
+        <div class="by">מי שבנה את האפליקציה</div>
       </div>
     </div>
   </section>
 
   <section id="join">
     <div class="wrap">
-      <div class="sec-title"><h2>הצטרפו לגישה המוקדמת</h2><p>הזוגות הראשונים יקבלו את המחיר המוקדם, וגם יעזרו לנו להחליט מה עוד להוסיף.</p></div>
+      <div class="sec-title"><h2>הצטרפו לגישה המוקדמת</h2><p>הזוגות הראשונים מקבלים את הכל בחינם, ובתמורה עוזרים לנו להחליט מה עוד להוסיף.</p></div>
       <div class="offer">
         <div class="price">
-          <span class="tag">מחיר לנרשמים מוקדמים</span>
-          <div class="amt">149 <small>₪</small></div>
-          <div class="was">תשלום חד פעמי לכל החתונה, במקום <s>249 ₪</s></div>
+          <span class="tag">לזוגות הראשונים</span>
+          <div class="amt">חינם</div>
+          <div class="was">שירות אישורי הגעה לבד עולה בדרך כלל כ-600 ₪. כאן הוא כלול, יחד עם כל השאר.</div>
           <ul>
             <li>כל הכלים: מוזמנים, ספקים, תקציב, אולמות ותאריכים</li>
             <li>אישורי הגעה בקישור אישי בוואטסאפ</li>
             <li>חינה ושבת חתן כלולים</li>
-            <li>עד שבוע אחרי החתונה, בלי מנוי חודשי</li>
+            <li>בלי כרטיס אשראי ובלי התחייבות</li>
           </ul>
         </div>
 
         <form class="card" id="f" novalidate>
           <div id="formBody">
             <h3>שמרו לי מקום</h3>
-            <p class="sub">לא גובים כלום עכשיו. נשלח לכם הודעה כשנפתח.</p>
+            <p class="sub">בחינם. נשלח לכם הודעה בוואטסאפ כשנפתח.</p>
 
             <label for="name">שם</label>
             <input id="name" name="name" autocomplete="name" required maxlength="80" placeholder="למשל: נועה">
@@ -302,11 +302,13 @@ footer{padding:30px 0 90px;text-align:center;color:var(--muted);font-size:14px}
               <input type="checkbox" id="p4" value="תיאום בינינו"><label for="p4">תיאום בינינו</label>
             </div>
 
-            <label>האם 149 ₪ חד פעמי נשמע לכם הוגן?</label>
+            <label>כמה הייתם מוכנים לשלם על כלי כזה לכל החתונה? <span class="opt">(רק כדי שנדע)</span></label>
             <div class="chips" id="pay">
-              <input type="radio" name="pay" id="y1" value="כן, הייתי משלם"><label for="y1">כן, הייתי משלם</label>
-              <input type="radio" name="pay" id="y2" value="רק אם זה זול יותר"><label for="y2">רק אם זול יותר</label>
-              <input type="radio" name="pay" id="y3" value="רק בחינם"><label for="y3">רק בחינם</label>
+              <input type="radio" name="pay" id="y1" value="רק בחינם"><label for="y1">רק בחינם</label>
+              <input type="radio" name="pay" id="y2" value="עד 200"><label for="y2">עד 200 ₪</label>
+              <input type="radio" name="pay" id="y3" value="200-400"><label for="y3">200 עד 400 ₪</label>
+              <input type="radio" name="pay" id="y4" value="400-600"><label for="y4">400 עד 600 ₪</label>
+              <input type="radio" name="pay" id="y5" value="מעל 600"><label for="y5">יותר מ-600 ₪</label>
             </div>
 
             <button class="btn" type="submit" id="go">שמרו לי מקום</button>
@@ -336,7 +338,7 @@ footer{padding:30px 0 90px;text-align:center;color:var(--muted);font-size:14px}
 </main>
 
 <footer>נבנה באהבה בישראל 💍</footer>
-<div class="sticky" id="sticky"><a class="btn" href="#join" data-ev="cta_sticky">אני רוצה גישה מוקדמת · 149 ₪</a></div>
+<div class="sticky" id="sticky"><a class="btn" href="#join" data-ev="cta_sticky">אני רוצה גישה מוקדמת בחינם</a></div>
 
 <script>
 (function(){
