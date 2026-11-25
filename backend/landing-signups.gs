@@ -23,8 +23,8 @@ function doPost(e) {
     if (!name || phone.replace(/\D/g, '').length < 9) return out_({ ok: false });
     const lock = LockService.getScriptLock(); lock.waitLock(10000);
     try {
-      tab_('signups', ['time', 'name', 'phone', 'when', 'pains', 'would pay', 'source', 'visitor'])
-        .appendRow([new Date(), name, "'" + phone, clip_(b.when, 40), clip_(b.pains, 200), clip_(b.pay, 40), clip_(b.src, 60), clip_(b.vid, 20)]);
+      tab_('signups', ['time', 'name', 'phone', 'when', 'guests', 'pains', 'would pay', 'source', 'visitor'])
+        .appendRow([new Date(), name, "'" + phone, clip_(b.when, 40), clip_(b.guests, 30), clip_(b.pains, 200), clip_(b.pay, 40), clip_(b.src, 60), clip_(b.vid, 20)]);
     } finally { lock.releaseLock(); }
     return out_({ ok: true });
   }

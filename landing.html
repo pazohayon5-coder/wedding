@@ -153,14 +153,14 @@ footer{padding:30px 0 90px;text-align:center;color:var(--muted);font-size:14px}
 <header class="hero">
   <div class="wrap">
     <div>
-      <span class="kicker">גישה מוקדמת בחינם לזוגות מתחתנים</span>
+      <span class="kicker">גישה מוקדמת לזוגות מתחתנים</span>
       <h1>מתכננים חתונה, <em>בלי האקסל.</em></h1>
       <p class="lead">רשימת המוזמנים, אישורי ההגעה בוואטסאפ, הספקים והתקציב. הכל במקום אחד, מהטלפון, לשניכם ביחד.</p>
       <div class="ctas">
         <a class="btn" href="#join" data-ev="cta_hero">אני רוצה גישה מוקדמת</a>
         <a class="btn ghost" href="#features">מה יש בפנים?</a>
       </div>
-      <p class="note">בחינם לזוגות הראשונים, בלי התחייבות.</p>
+      <p class="note">התכנון בחינם, ואישורי הגעה בחינם עד 30 מוזמנים. בלי התחייבות.</p>
     </div>
     <div class="phone" aria-hidden="true">
       <div class="screen">
@@ -241,7 +241,7 @@ footer{padding:30px 0 90px;text-align:center;color:var(--muted);font-size:14px}
     <div class="wrap">
       <div class="sec-title"><h2>איך זה עובד</h2><p>שלוש דקות ואתם בפנים.</p></div>
       <div class="steps">
-        <div class="step"><b>נרשמים לגישה מוקדמת</b><span>משאירים שם וטלפון, בחינם.</span></div>
+        <div class="step"><b>נרשמים לגישה מוקדמת</b><span>משאירים שם וטלפון, בלי תשלום.</span></div>
         <div class="step"><b>מקבלים קישור אישי</b><span>אתר פרטי לחתונה שלכם, עם קוד כניסה רק לכם.</span></div>
         <div class="step"><b>מכניסים את הרשימה</b><span>מדביקים את המוזמנים, שולחים קישורים בוואטסאפ, וזהו.</span></div>
       </div>
@@ -259,24 +259,24 @@ footer{padding:30px 0 90px;text-align:center;color:var(--muted);font-size:14px}
 
   <section id="join">
     <div class="wrap">
-      <div class="sec-title"><h2>הצטרפו לגישה המוקדמת</h2><p>הזוגות הראשונים מקבלים את הכל בחינם, ובתמורה עוזרים לנו להחליט מה עוד להוסיף.</p></div>
+      <div class="sec-title"><h2>הצטרפו לגישה המוקדמת</h2><p>הזוגות הראשונים מקבלים מחיר מוזל, ועוזרים לנו להחליט מה עוד להוסיף.</p></div>
       <div class="offer">
         <div class="price">
-          <span class="tag">לזוגות הראשונים</span>
+          <span class="tag">גישה מוקדמת</span>
           <div class="amt">חינם</div>
-          <div class="was">שירות אישורי הגעה לבד עולה בדרך כלל כ-600&nbsp;₪. כאן הוא כלול, יחד עם כל השאר.</div>
+          <div class="was">כל כלי התכנון, ואישורי הגעה עד 30 מוזמנים. לחתונה גדולה יותר, מחיר מוזל למצטרפים הראשונים. לשם השוואה, שירות אישורי הגעה לבד עולה בדרך כלל כ-600&nbsp;₪.</div>
           <ul>
-            <li>כל הכלים: מוזמנים, ספקים, תקציב, אולמות ותאריכים</li>
-            <li>אישורי הגעה בקישור אישי בוואטסאפ</li>
+            <li>ספקים, תקציב, אולמות, תאריכים ומשימות: בחינם</li>
+            <li>אישורי הגעה בקישור אישי בוואטסאפ: בחינם עד 30 מוזמנים</li>
             <li>חינה ושבת חתן כלולים</li>
-            <li>בלי כרטיס אשראי ובלי התחייבות</li>
+            <li>מעל 30 מוזמנים: מחיר מוזל לזוגות הראשונים</li>
           </ul>
         </div>
 
         <form class="card" id="f" novalidate>
           <div id="formBody">
             <h3>שמרו לי מקום</h3>
-            <p class="sub">בחינם. נשלח לכם הודעה בוואטסאפ כשנפתח.</p>
+            <p class="sub">לא גובים כלום עכשיו. נשלח לכם הודעה בוואטסאפ כשנפתח.</p>
 
             <label for="name">שם</label>
             <input id="name" name="name" autocomplete="name" required maxlength="80" placeholder="למשל: נועה">
@@ -294,6 +294,12 @@ footer{padding:30px 0 90px;text-align:center;color:var(--muted);font-size:14px}
               <option>עוד לא קבענו תאריך</option>
             </select>
 
+            <label for="guests">כמה מוזמנים בערך? <span class="opt">(לא חובה)</span></label>
+            <select id="guests" name="guests">
+              <option value="">בחרו</option>
+              <option>עד 30</option><option>30 עד 150</option><option>150 עד 300</option><option>300 עד 500</option><option>יותר מ-500</option><option>עוד לא יודעים</option>
+            </select>
+
             <label>מה הכי מעיק עליכם עכשיו? <span class="opt">(אפשר כמה)</span></label>
             <div class="chips" id="pains">
               <input type="checkbox" id="p1" value="מוזמנים ואישורי הגעה"><label for="p1">מוזמנים ואישורים</label>
@@ -302,7 +308,7 @@ footer{padding:30px 0 90px;text-align:center;color:var(--muted);font-size:14px}
               <input type="checkbox" id="p4" value="תיאום בינינו"><label for="p4">תיאום בינינו</label>
             </div>
 
-            <label>כמה הייתם מוכנים לשלם על כלי כזה לכל החתונה? <span class="opt">(רק כדי שנדע)</span></label>
+            <label>כמה הייתם מוכנים לשלם על אישורי הגעה לכל המוזמנים, יחד עם כל הכלים? <span class="opt">(רק כדי שנדע)</span></label>
             <div class="chips" id="pay">
               <input type="radio" name="pay" id="y1" value="רק בחינם"><label for="y1">רק בחינם</label>
               <input type="radio" name="pay" id="y2" value="עד 200"><label for="y2">עד 200 ₪</label>
@@ -338,7 +344,7 @@ footer{padding:30px 0 90px;text-align:center;color:var(--muted);font-size:14px}
 </main>
 
 <footer>נבנה באהבה בישראל 💍</footer>
-<div class="sticky" id="sticky"><a class="btn" href="#join" data-ev="cta_sticky">אני רוצה גישה מוקדמת בחינם</a></div>
+<div class="sticky" id="sticky"><a class="btn" href="#join" data-ev="cta_sticky">אני רוצה גישה מוקדמת</a></div>
 
 <script>
 (function(){
@@ -369,7 +375,7 @@ footer{padding:30px 0 90px;text-align:center;color:var(--muted);font-size:14px}
     var pains = [].map.call(document.querySelectorAll('#pains input:checked'), function(i){ return i.value; }).join(', ');
     var pay = (document.querySelector('#pay input:checked') || {}).value || '';
     go.disabled = true; go.textContent = 'שולח...';
-    fetch(API, { method:'POST', body: JSON.stringify({ action:'signup', name:name, phone:phone, when:when, pains:pains, pay:pay, src:src, vid:vid }) })
+    fetch(API, { method:'POST', body: JSON.stringify({ action:'signup', name:name, phone:phone, when:when, guests:document.getElementById('guests').value, pains:pains, pay:pay, src:src, vid:vid }) })
       .then(function(r){ return r.json(); })
       .then(function(r){ if (!r.ok) throw 0; document.getElementById('formBody').style.display='none'; document.getElementById('done').style.display='block'; sticky.remove(); })
       .catch(function(){ go.disabled = false; go.textContent = 'שמרו לי מקום'; err('משהו השתבש. נסו שוב בעוד רגע.'); });
