@@ -4,6 +4,7 @@
 # דוגמה:  tools/new-couple.sh alon-liat אלון ליאת
 # התוצאה: תיקייה <slug>/ עם index.html + rsvp.html (כתובת: .../wedding/<slug>/)
 #          וקובץ backend/Code-<slug>.gs להדבקה בגיליון Google חדש של הזוג.
+# להסתרת לשונית ימי שישי:  HIDE_DATES=1 tools/new-couple.sh ...
 # אפשר להריץ שוב בכל פעם שהאפליקציה הראשית מתעדכנת (או כשמתקבלת כתובת exec).
 set -e
 cd "$(dirname "$0")/.."
@@ -23,4 +24,8 @@ for f in index.html rsvp.html; do
       "$f" > "$SLUG/$f"
 done
 sed -e "s/אורי/$N1/g" -e "s/יובל/$N2/g" backend/Code.gs > "backend/Code-$SLUG.gs"
+if [ -n "$HIDE_DATES" ]; then
+  sed -i "s/,\['dates','תאריכים ימי שישי'\]//" "$SLUG/index.html"
+  grep -q "'dates','תאריכים" "$SLUG/index.html" && { echo "failed to hide dates tab"; exit 1; }
+fi
 echo "built $SLUG/ (api: ${API:-none, local mode})"
